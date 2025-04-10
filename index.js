@@ -8,6 +8,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Add root route handler
+app.get("/", (req, res) => {
+  res.json({ message: "Todo List API is running" });
+});
+
 mongoose.connect("mongodb+srv://shervinthomas2026:shervin123@cluster0.kwip1.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -18,5 +23,5 @@ mongoose.connection.on("error", (err) => console.error("MongoDB connection error
 
 app.use("/api", taskRoutes);
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
